@@ -1,19 +1,9 @@
 const { ObjectId } = require('mongodb');
-const client = require('./mongodb.js');
-
-
-const dbName = 'digiKey-dev';
-const usersCollection = 'users';
+const {usersCollection} = require('../mongodb.js');
 
 const postUser = async (req, res, next) => {
     const data = req.body;
     try {
-        // Connect to MongoDB
-        const db = client.db(dbName);
-
-        // get the refernce to the users collection
-        const collection = db.collection(usersCollection);
-
         // a new ObjectId is generated for each new user
         const filter = { _id: new ObjectId() };
         // data is passed to the $set operator to update the document OR CREATE A NEW ONE
@@ -22,7 +12,7 @@ const postUser = async (req, res, next) => {
         const options = { upsert: true, returnDocument: 'after' }; 
 
         // returns the newly created document
-        const result = await collection.findOneAndUpdate( filter , update , options );
+        const result = await usersCollection.findOneAndUpdate( filter , update , options );
 
         // Send the results as the response
         res.status(201).json(result);

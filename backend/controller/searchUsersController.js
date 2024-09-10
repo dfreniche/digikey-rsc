@@ -1,7 +1,4 @@
-const client = require('./mongodb.js');
-
-const db = client.db('digiKey-dev');
-const collection = db.collection('users');
+const {usersCollection} = require('../mongodb.js');
 
 // Define the search stage for the aggregation pipeline
 // we are using the default index and searching the name field
@@ -31,7 +28,7 @@ const searchRoute = async (req, res, next) => {
 
         // use the aggregation pipeline to search the collection and limit to 5 results
         
-        const results = await collection.aggregate([searchStage(query)]).limit(10).toArray();  
+        const results = await usersCollection.aggregate([searchStage(query)]).limit(10).toArray();  
 
         res.status(200).json(results);
     } catch (error) {    

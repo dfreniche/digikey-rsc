@@ -16,9 +16,10 @@ client.connect((err) => {
         process.exit(1);
     }
     console.log('Connected to MongoDB Atlas');
-
-    // Export the client for other modules to use
-    
 });
 
-module.exports = client;
+const db = client.db('digiKey-dev');
+const usersCollection = db.collection('users');
+
+// Export the client, db and user's collection for other modules to use
+module.exports = {client, db, usersCollection};
