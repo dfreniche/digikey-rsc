@@ -18,14 +18,16 @@ const searchStage = (query) =>
             }
           }
         }
-      
     };
 
 const searchRoute = async (req, res, next) => {
     // get the query 
     const { query } = req.body.params;
     try {
-
+        const indexExists = await checkSearchIndexExists(usersCollection);
+        if (!indexExists) {
+           await createSearchIndex(usersCollection);
+        }
         // use the aggregation pipeline to search the collection and limit to 5 results
         
         const results = await usersCollection.aggregate([searchStage(query)]).limit(10).toArray();  
@@ -36,5 +38,32 @@ const searchRoute = async (req, res, next) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+
+
+const checkSearchIndexExists = async (collection) => {
+  // List search indexes
+  const searchIndexes = await collection.listSearchIndexes("default").toArray();
+
+  if (searchIndexes === undefined || searchIndexes.length == 0) {
+      // array does not exist or is empty
+      return false;
+  }
+  console.log("Existing search index!\n");
+  return true;
+}
+
+const createSearchIndex = async (collection) => {
+  console.log("Creating Atlas Search index!")
+  // Create a search index
+  const index = {
+      name: "default",
+      definition: {
+          "mappings": {
+              "dynamic": true
+          }
+      }
+  }
+  await collection.createSearchIndex(index);
+};
 
 module.exports = searchRoute;
