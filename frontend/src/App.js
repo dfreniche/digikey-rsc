@@ -27,7 +27,11 @@ const App = () => {
     setUsers([...users, newUser]);
   };
 
-
+  const handleUserDeleted = (newUser) => {
+    const newUsers =  [...users];
+    newUsers.splice(newUser._id, 1);
+    setUsers(newUsers);
+  };
   
   return (
     <div className="container">
@@ -35,7 +39,7 @@ const App = () => {
       <div className="user-container">
         {/* User List */}
         <div className="userList">
-         <UserList users={users} />
+         <UserList users = {users} onUserDeleted = {handleUserDeleted} />
         </div>
 
         {/* Add User Form */}
