@@ -5,12 +5,15 @@
   "updateContentCommand": "/bin/bash .devcontainer/updateContent.sh",
   "postCreateCommand": "",
   "postAttachCommand": {
-    "server": "npm install && npm run start:all"
+    "server": "cd backend && npm run start",
+    "client": "cd frontend && npm run start",
+    "portSetup": "/bin/bash .devcontainer/portSetup.sh"
   },
   "customizations": {
     "codespaces": {
       "openFiles": [
-        "backend/.env"
+        "backend/.env",
+        "backend/mongodb.js"
       ]
     },
     "vscode": {
