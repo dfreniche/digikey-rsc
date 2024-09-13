@@ -13,7 +13,7 @@
     "codespaces": {
       "openFiles": [
         "backend/.env",
-        "backend/mongodb.js"
+        "frontend/src/config.js"
       ]
     },
     "vscode": {

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './index.css'; // Ensure this is the correct path to your CSS file
+import { URL } from './config';
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,7 +14,7 @@ const SearchBar = () => {
 
   const handleSearchClick = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/search', {
+      const response = await axios.post(URL + "/search", {
         params: { query: searchQuery }
       });
 

@@ -5,13 +5,14 @@ import UserList from './UserList';
 import AddUser from './AddUser';
 import axios from 'axios';
 import SearchBar from './SearchBar';
+import { URL } from './config';
 
 const App = () => {
   const [users, setUsers] = useState([]);
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/');
+      const response = await axios.get(URL);
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);

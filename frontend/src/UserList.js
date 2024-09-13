@@ -2,14 +2,16 @@
 
 import React from 'react';
 import axios from 'axios';
+import { URL } from './config';
 
 const UserList = ({ users, onUserDeleted }) => {
   const deleteUser = async (users, userId) => {
       console.log(userId);
-      const response = await axios.delete('http://localhost:5000/', { data: {id: userId} });
+      const response = await axios.delete(URL, { data: {id: userId} });
       console.log("Deleted" + JSON.stringify(response));
       onUserDeleted(userId);
   }
+  
   console.log(users);
   return (
     <div className='userList'>
