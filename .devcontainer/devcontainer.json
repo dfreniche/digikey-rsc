@@ -12,6 +12,11 @@
       "openFiles": [
         "backend/.env"
       ]
+    },
+    "vscode": {
+      "extensions": [
+        "mongodb.mongodb-vscode"
+      ]
     }
   },
   "portsAttributes": {
