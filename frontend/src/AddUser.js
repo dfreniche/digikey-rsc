@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { URL } from './config';
 
 const AddUser = ({ onUserAdded }) => {
   const [name, setName] = useState('');
@@ -19,7 +20,7 @@ const AddUser = ({ onUserAdded }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/', newUser);
+      const response = await axios.post(URL, newUser);
       console.log('User added:', response.data);
       
       // Callback to inform parent component
