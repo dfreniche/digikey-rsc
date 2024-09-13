@@ -28,9 +28,11 @@ const App = () => {
     setUsers([...users, newUser]);
   };
 
-  const handleUserDeleted = (newUser) => {
-    const newUsers =  [...users];
-    newUsers.splice(newUser._id, 1);
+  const handleUserDeleted = (deletedUserId) => {
+    const newUsers =  users.filter(x => {
+    return x._id !== "" + deletedUserId;
+  })
+  console.log(newUsers);
     setUsers(newUsers);
   };
   
